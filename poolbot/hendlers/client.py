@@ -2,6 +2,7 @@ from aiogram import Dispatcher, types
 
 from core.create_bot import bot
 from core.settings import MESSAGES
+from keyboards import client_kb
 
 
 # @dp.message_handler(commands=["start", "help"])
