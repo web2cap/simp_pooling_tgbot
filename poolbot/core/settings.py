@@ -17,5 +17,6 @@ MESSAGES = {
     "admin_upload_description": "Write a description",
     "admin_upload_price": "Write a price",
     "admin_upload_break": "Canceled!",
+    "admin_active" : "Admin mode is activate"
     
 }

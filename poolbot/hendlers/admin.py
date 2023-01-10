@@ -2,9 +2,11 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
-from core.create_bot import bot, dp
+from core.create_bot import bot, dp, sql_command
 from core.settings import MESSAGES
 from states.admin import FSMPizza
+from keyboards import admin_kb
+
 
 ADMIN_ID = None
 
@@ -14,7 +16,11 @@ async def make_changes_command(message: types.Message):
 
     global ADMIN_ID
     ADMIN_ID = message.from_user.id
-    await bot.send_message(message.from_user.id, "Admin mode activate")
+    await bot.send_message(
+        message.from_user.id,
+        MESSAGES["admin_active"],
+        reply_markup=admin_kb.keybord_admin
+    )
     await message.delete()
 
 
@@ -82,8 +88,11 @@ async def load_price(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["price"] = float(message.text)
     
-    async with state.proxy() as data:
-        await message.reply(str(data))
+    # Debug data
+    # async with state.proxy() as data:
+    #     await message.reply(str(data))
+    query_status = await sql_command(state)
+    await message.reply(query_status)
     
     # Close state
     await state.finish()
