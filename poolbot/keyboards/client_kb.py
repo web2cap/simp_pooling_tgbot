@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemo
 
 
 button_help = KeyboardButton("/help")
-button_start = KeyboardButton("/start")
+button_start = KeyboardButton("/menu")
 button_share_phone = KeyboardButton("share phone", request_contact=True)
 button_share_location = KeyboardButton("share_location", request_location=True)
 

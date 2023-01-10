@@ -2,29 +2,56 @@ import sqlite3 as sq
 
 from aiogram.dispatcher import FSMContext
 
+from core.settings import DATABASE
 
-def sql_start():
-    base = sq.connect("pizza.db")
-    dbcursor = base.cursor()
-    if base:
-        print("Database connected")
-    sql = "create table if not exists menu(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT)"
-    base.execute(sql)
-    base.commit()
 
-    async def sql_command(state: FSMContext):
+class PizzaDB():
+    """Manage data for pizza cafe in db sqlite3."""
+
+    base = None
+    cursor = None
+
+    def __init__(self):
+        """Init connection and create tables if it not exists."""
+
+        self.base = sq.connect(DATABASE["name"])
+        self.cursor = self.base.cursor()
+        if not self.base:
+            assert("Database connection error")
+        sql = """create table if not exists menu(
+                    img TEXT,
+                    name TEXT PRIMARY KEY,
+                    description TEXT, price TEXT
+                )"""
+        self.cursor.execute(sql)
+        self.base.commit()
+
+    async def add(self, state: FSMContext):
+        """Add new pizza, from context manager data."""
+
         async with state.proxy() as data:
             try:
-                dbcursor.execute("INSERT INTO menu VALUES (?, ?, ?, ?)", tuple(data.values()))
-                base.commit()
+                self.cursor.execute(
+                    "INSERT INTO menu VALUES (?, ?, ?, ?)",
+                    tuple(data.values())
+                )
+                self.base.commit()
             except Exception as e:
                 print(f"error: {e}")
                 return e
             return data["name"]
 
-    return sql_command
+    async def get_all(self):
+        "Get all pizzas."
 
-# async def sql_command(state: FSMContext):
-#     async with state.proxy() as data:
-#         dbcursor.execute("INSERT INTO menu VALUES (?, ?, ?, ?)", tuple(data.values()))
-#         base.commit()
+        sql = "select * from menu"
+        result = []
+        for ret in self.cursor.execute(sql).fetchall():
+            result.append(ret)
+        return result
+        
+
+
+
+
+

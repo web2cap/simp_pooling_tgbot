@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 TG_TOKEN = os.getenv("TG_TOKEN")
 
+DATABASE = {"name" : "pizza.db"}
+
 MESSAGES = {
     "on_startup" : "Bot is online",
     "hello" : "Hello! Lets start!!!",
@@ -20,3 +22,5 @@ MESSAGES = {
     "admin_active" : "Admin mode is activate"
     
 }
+
+CURRENCY = "$"

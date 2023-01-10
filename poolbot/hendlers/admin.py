@@ -2,7 +2,7 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
-from core.create_bot import bot, dp, sql_command
+from core.create_bot import bot, db, dp
 from core.settings import MESSAGES
 from states.admin import FSMPizza
 from keyboards import admin_kb
@@ -91,7 +91,7 @@ async def load_price(message: types.Message, state: FSMContext):
     # Debug data
     # async with state.proxy() as data:
     #     await message.reply(str(data))
-    query_status = await sql_command(state)
+    query_status = await db.add(state)
     await message.reply(query_status)
     
     # Close state
