@@ -1,7 +1,6 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-
-button_upload= KeyboardButton("/upload")
+button_upload = KeyboardButton("/upload")
 button_break = KeyboardButton("/break")
 button_delete = KeyboardButton("/delete")
 

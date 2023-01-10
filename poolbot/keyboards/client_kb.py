@@ -1,5 +1,5 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
-
+from aiogram.types import (KeyboardButton, ReplyKeyboardMarkup,
+                           ReplyKeyboardRemove)
 
 button_help = KeyboardButton("/help")
 button_start = KeyboardButton("/menu")
