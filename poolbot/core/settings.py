@@ -7,11 +7,13 @@ TG_TOKEN = os.getenv("TG_TOKEN")
 
 DATABASE = {"name": "pizza.db"}
 
+BOT_USERNAME = "username"
+
 MESSAGES = {
     "on_startup": "Bot is online",
     "hello": "Hello! Lets start!!!",
     "only_direct": "You can talk with bot only in derect,"
-    "please start chat with bot https://t.me/englishdailybot",
+    f"please start chat with bot https://t.me/{BOT_USERNAME}",
     "admin_upload_photo": "Please upload photo",
     "admin_upload_name": "Write a name",
     "admin_upload_description": "Write a description",
